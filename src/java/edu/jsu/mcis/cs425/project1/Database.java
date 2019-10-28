@@ -104,4 +104,61 @@ public class Database {
         
     } // End getResultSetTable()
     
+    
+    private ResultSet getResultSet(String query) throws SQLException{
+        
+        Connection connection = getConnection();
+        PreparedStatement pStatement = connection.prepareStatement(query);
+        pStatement.execute();
+        
+        ResultSet results = pStatement.getResultSet();
+        
+
+        return results;
+    }
+    
+    public String getSession(String sessionID) throws SQLException, ServletException, IOException{
+        
+        String query = "SELECT * FROM registration_db.registrations " + "WHERE sessionid = " + sessionID;
+        
+        return getResultSetTable(getResultSet(query));
+    }
+    
+    
+    public JSONObject addAttendee(String firstname, String lastname, String displayname, int sessionid) throws SQLException{
+        
+        
+        int primaryKey = 0;
+        
+        String query = "INSERT INTO registration_db.registrations (firstname,lastname,displayname,sessionid) VALUES (?,?,?,?)" ;
+    
+        Connection connection = getConnection();
+        PreparedStatement pStatement = connection.prepareStatement(query, PreparedStatement.RETURN_GENERATED_KEYS);
+        
+        pStatement.setString(1,firstname);
+        pStatement.setString(2,lastname);
+        pStatement.setString(3,displayname);
+        pStatement.setInt(4, sessionid);
+        
+        int result = pStatement.executeUpdate();
+        ResultSet keys;
+        
+        if(result == 1){
+             keys = pStatement.getGeneratedKeys();
+            if(keys.next()){
+                primaryKey = keys.getInt(1);
+            }
+        }
+        
+        connection.close();
+        pStatement.close();
+
+        String registrationID = String.format("%06d", primaryKey);
+        
+        JSONObject json = new JSONObject();
+        json.put("code", "R" + registrationID);
+        json.put("displayname",displayname);
+        
+        return json;
+    }
 }

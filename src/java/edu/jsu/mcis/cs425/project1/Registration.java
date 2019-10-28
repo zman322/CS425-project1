@@ -8,11 +8,14 @@ package edu.jsu.mcis.cs425.project1;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -36,14 +39,31 @@ public class Registration extends HttpServlet {
         
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
+         
+            String sessionID = request.getParameter("ID");
+            Database data = new Database();
+            String table = data.getSession(sessionID);
+            out.println(table);
             
         }
     }
     protected void processPostRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
-        response.setContentType("text/html;charset=UTF-8");
+        response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
+            String firstName = request.getParameter("firstname");
+            String lastName = request.getParameter("lastname");
+            String displayName = request.getParameter("displayname");
+            String sessionID = request.getParameter("sessionid");
+            int INTsessionID = Integer.parseInt(sessionID);
+            
+            Database data = new Database();
+            JSONObject info = data.addAttendee(firstName, lastName, displayName, Integer.parseInt(sessionID));
+            String finalDisplay = info.toJSONString();
+            String finalCode = info.get("code").toString();
+            
+            out.println(info.toJSONString());
         }
     }
 
@@ -62,10 +82,10 @@ public class Registration extends HttpServlet {
         try{
             processGetRequest(request, response);
     }
-        catch(SQLExeption ex){
+        catch(SQLException ex){
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    }
     /**
      * Handles the HTTP <code>POST</code> method.
      *
@@ -80,10 +100,10 @@ public class Registration extends HttpServlet {
         try{
             processPostRequest(request, response);
     }
-        catch(SQLExeption ex){
+        catch(SQLException ex){
             Logger.getLogger(Registration.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+    }
     /**
      * Returns a short description of the servlet.
      *
@@ -95,3 +115,5 @@ public class Registration extends HttpServlet {
     }// </editor-fold>
 
 }
+            
+    

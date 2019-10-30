@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.ServletException;
 import javax.sql.DataSource;
 
@@ -28,7 +29,7 @@ public class Database {
             conn = ds.getConnection();
             
         }        
-        catch (Exception e) { e.printStackTrace(); }
+        catch (SQLException | NamingException e) { e.printStackTrace(); }
         
         return conn;
 
@@ -98,7 +99,7 @@ public class Database {
 
         }
         
-        catch (Exception e) {}
+        catch (SQLException e) {}
         
         return table;
         

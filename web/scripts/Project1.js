@@ -21,7 +21,7 @@ var Project1 = ( function() {
    
             $.ajax({
 
-                url: 'registration?ID=' + sessionID,
+                url: 'registration'
                 method: 'GET',
                 data: $('#searchform').serialize(),
 

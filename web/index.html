@@ -6,11 +6,36 @@ and open the template in the editor.
 -->
 <html>
     <head>
-        <title>TODO supply a title</title>
+        
+        <title>Search Registration</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="text/javascript" src="libraries/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript" src="libraries/Project1.js"></script>
+        
     </head>
     <body>
-        <div>TODO write content</div>
+        <div id="NavBar">
+            
+            <a href="index.html">Search Registrations</a>
+            <a href="register.html">Register Attendee</a>
+            
+        </div>
+        <div id="boxedArea">
+            
+            Select Session:
+            <select id="sessionid">
+                
+                <option value="1">Session 1</option>
+                <option value="2">Session 2</option>
+                <option value="3">Session 3</option>
+                <option value="4">Session 4</option>
+                
+            </select>
+            
+            <button onClick="submitSessionForm();">Submit</button>
+        </div>
+        
+        <div id="table"></div>
     </body>
 </html>

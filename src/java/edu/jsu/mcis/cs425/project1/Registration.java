@@ -40,9 +40,9 @@ public class Registration extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
          
-            String sessionID = request.getParameter("ID");
+            String sessionid = request.getParameter("ID");
             Database data = new Database();
-            String table = data.getSession(sessionID);
+            String table = data.getSession(sessionid);
             out.println(table);
             
         }
@@ -52,14 +52,14 @@ public class Registration extends HttpServlet {
         response.setContentType("application/json;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             
-            String firstName = request.getParameter("firstname");
-            String lastName = request.getParameter("lastname");
-            String displayName = request.getParameter("displayname");
-            String sessionID = request.getParameter("sessionid");
-            int INTsessionID = Integer.parseInt(sessionID);
+            String firstname = request.getParameter("firstname");
+            String lastname = request.getParameter("lastname");
+            String displayname = request.getParameter("displayname");
+            String sessionid = request.getParameter("sessionid");
+            int INTsessionID = Integer.parseInt(sessionid);
             
             Database data = new Database();
-            JSONObject info = data.addAttendee(firstName, lastName, displayName, Integer.parseInt(sessionID));
+            JSONObject info = data.addAttendee(firstname, lastname, displayname, Integer.parseInt(sessionid));
             String finalDisplay = info.toJSONString();
             String finalCode = info.get("code").toString();
             

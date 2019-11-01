@@ -5,6 +5,8 @@
  */
 
 
+/* global dataForm */
+
 var Project1 = ( function() {
 
     return {
@@ -17,11 +19,11 @@ var Project1 = ( function() {
         
         submitSessionForm: function() {
 
-            var sessionID = $("#sessionid").val();
+            var sessionid = $("#sessionid").val();
    
             $.ajax({
 
-                url: 'registration'
+                url: 'registration',
                 method: 'GET',
                 data: $('#searchform').serialize(),
 
@@ -42,20 +44,15 @@ var Project1 = ( function() {
             var firstname = $("#firstname").val();
             var lastname = $("#lastname").val();
             var displayname = $("#displayname").val();
-            var sessionID = $("#sessionid").val();
+            var sessionid = $("#sessionid").val();
             
-            var dataForm{
-                firstname: firstname,
-                lastname: lastname,
-                displayname: displayname,
-                sessionID: sessionid
-            }
+            
             
             $.ajax({
 
                 url: 'registration',
                 method: 'POST',
-                data: dataForm,
+                data: $("#registration").serialize(),
                 dataType: "json",
 
                 success: function(response) {

@@ -23,18 +23,19 @@ and open the template in the editor.
             
         </div>
         <div id="boxedArea">
-            
-            Select Session:
-            <select id="sessionid">
+            <form id="sessionid" name="sessionid">
                 
-                <option value="1">Session 1</option>
-                <option value="2">Session 2</option>
-                <option value="3">Session 3</option>
-                <option value="4">Session 4</option>
+                Select Session: <select id="sessionid">
+                    <option value="1">Session 1</option>
+                    <option value="2">Session 2</option>
+                    <option value="3">Session 3</option>
+                    <option value="4">Session 4</option>
+                </select>
                 
-            </select>
-            
-            <button onClick="Project1.submitSessionForm();">Submit</button>
+                <button onClick="Project1.submitSessionForm();">Submit</button>
+                
+            </form>
+           
         </div>
         
         <div id="table"></div>

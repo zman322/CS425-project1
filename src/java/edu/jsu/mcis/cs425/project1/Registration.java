@@ -56,7 +56,7 @@ public class Registration extends HttpServlet {
             String lastname = request.getParameter("lastname");
             String displayname = request.getParameter("displayname");
             String sessionid = request.getParameter("sessionid");
-            int INTsessionID = Integer.parseInt(sessionid);
+           
             
             Database data = new Database();
             JSONObject info = data.addAttendee(firstname, lastname, displayname, Integer.parseInt(sessionid));
